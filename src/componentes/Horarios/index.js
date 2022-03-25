@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import {Footer} from "../Footer";
@@ -20,12 +21,12 @@ export function Horarios() {
       .catch((erro) => console.error(erro.response));
   },[]);
 
+
   if (filme === null) {
     return <></>;
   }
   const { title, posterURL, days } = filme;
   
-
   return (
     <>
     <section>
@@ -33,7 +34,7 @@ export function Horarios() {
         <h2>Selecione o horário</h2>
       </div>
       {days.map((day) => {
-        const {id, weekday, date, showtimes } = day;
+        const { weekday, date, showtimes } = day;
         return (
           <div className="sessao">
             <div className="dias">
@@ -43,9 +44,10 @@ export function Horarios() {
             </div>
             <div>
               {showtimes.map((sessao) => {
-                const { name } = sessao;
-                return <><Link to={`sessao/${id}`}>
-                  <button className="horario">{name}</button></Link>
+                const { name,id } = sessao;
+                return <><Link to={`/sessao/${id}`}>
+                  <button className="horario">{name}</button>
+                  </Link>
                   </>;
               })}
             </div>

@@ -14,7 +14,6 @@ export function Main() {
     axios
       .get("https://mock-api.driven.com.br/api/v5/cineflex/movies")
       .then(function (response) {
-        console.log(response.data);
         setCartaz(response.data);
       });
   }, []);

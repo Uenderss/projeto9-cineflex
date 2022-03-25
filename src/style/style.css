@@ -1,4 +1,4 @@
-header{
+header {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -7,7 +7,7 @@ header{
   height: 67px;
   background: #c3cfd9;
 }
-header div{
+header div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,7 +117,6 @@ footer figure {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 footer figure img {
   width: 48px;
@@ -125,7 +124,7 @@ footer figure img {
   margin: 8px;
 }
 footer div div {
-  width:90%;
+  width: 90%;
   font-family: "Roboto";
   font-size: 26px;
   color: #293845;
@@ -134,4 +133,36 @@ footer div div {
   justify-content: flex-start;
   align-items: center;
   margin-left: 14px;
+}
+
+.reserva {
+  width: 225px;
+  height: 42px;
+  left: 72px;
+  top: 688px;
+  font-size: 18px;
+  background: #e8833a;
+  color: #ffffff;
+  border-radius: 3px;
+}
+label {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+
+  color: #293845;
+}
+input {
+  width: 327px;
+  height: 51px;
+  left: 24px;
+  top: 497px;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  box-sizing: border-box;
+  border-radius: 3px;
 }
