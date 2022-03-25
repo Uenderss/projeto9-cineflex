@@ -1,10 +1,11 @@
 import React from "react";
 
-
-export function Header(){
-    return (<header>
-      
+export function Header() {
+  return (
+    <header>
+      <div>
         <h1>CINEFLEX</h1>
-        
-    </header>);
+      </div>
+    </header>
+  );
 }

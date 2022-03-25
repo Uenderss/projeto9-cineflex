@@ -8,25 +8,25 @@ import "../../style/style.css";
 
 
 export function Main() {
-  const [filmes, setFilmes] = useState([]);
+  const [cartaz, setCartaz] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://mock-api.driven.com.br/api/v5/cineflex/movies")
       .then(function (response) {
         console.log(response.data);
-        setFilmes(response.data);
+        setCartaz(response.data);
       });
   }, []);
 
-  return filmes.length > 0 ? (
+  return cartaz.length > 0 ? (
     <main>
       <div className="titulo">
         <h2>Selecione o filme</h2>
       </div>
       <section>
-        {filmes.map((filme) => {
-          const { id, overview, posterURL, releaseDate, title } = filme;
+        {cartaz.map((filme) => {
+          const { id, posterURL, title } = filme;
           return (
             <Link to={`filmes/${id}`}>
               <div className="filme" key={id}>
