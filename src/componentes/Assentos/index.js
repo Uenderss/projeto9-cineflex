@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-// import { Footer } from "../Footer";
+import { Footer } from "../Footer";
 // import { Link } from "react-router-dom";
 
 export function Assentos() {
@@ -10,6 +10,11 @@ export function Assentos() {
 
   const [sessao, setSessao] = useState(null);
 
+  const poltronas = [];
+  for (let i = 0; i < 50; i++) {
+    poltronas.push(i);
+  }
+  console.log(poltronas);
   useEffect(() => {
     axios
       .get(
@@ -34,24 +39,54 @@ export function Assentos() {
 
   return (
     <>
-      <section>
+      <section className="assento">
         <div className="titulo">
-          <h2>Selecione o horário</h2>
+          <h2>Selecione o(s) assentos</h2>
         </div>
-        <div>
-          <div>
-            <label>Nome do Comprador</label><br/>
-            <input placeholder="Digite seu nome..."></input>
+        <div className="comprador">
+          <div className="assentos">
+            {poltronas.map((poltrona) => {
+              return (
+              
+                <span>
+                  <div className="circulo disponivel" >
+                    <p>{poltrona + 1}</p>
+                  </div>
+                </span>
+                
+              );
+            })}
           </div>
-          <div>
-            <label>CPF do comprador</label><br/>
-            <input placeholder="Digite seu CPF..."></input>
-          </div>
-        </div>
 
-        <button className="reserva">Reservar assentos(s)</button>
+          <div className="legenda">
+            <span>
+              <div className="circulo selecionado"></div>
+              <h4>Selecionado</h4>
+            </span>
+            <span>
+              <div className="circulo disponivel"></div>
+              <h4>Disponivel</h4>
+            </span>
+            <span>
+              <div className="circulo indisponivel"></div>
+              <h4>Indisponivel</h4>
+            </span>
+          </div>
+          <div>
+            <div className="inputs">
+              <label>Nome do Comprador</label>
+              <input placeholder="Digite seu nome..."></input>
+            </div>
+            <div className="inputs">
+              <label>CPF do comprador</label>
+    
+              <input placeholder="Digite seu CPF..."></input>
+            </div>
+          </div>
+          <button className="reserva">Reservar assentos(s)</button>
+        </div>
       </section>
-      <footer></footer>
+      <Footer></Footer>
     </>
   );
 }
