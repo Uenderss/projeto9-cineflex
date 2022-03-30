@@ -9,7 +9,12 @@ export function Footer(props) {
         <figure>
           <img src={props.filme} alt={props.titulo} />
         </figure>
-        <div><h3>{props.titulo}</h3></div>
+        <div> <span>{props.titulo}</span>
+              <span>{
+                  props.dia !== undefined ? `${props.dia} - ${props.hora}`: ``
+                }
+              </span>
+        </div>
       </div>
     </footer>
   );

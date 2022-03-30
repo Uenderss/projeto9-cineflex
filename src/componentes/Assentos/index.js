@@ -3,27 +3,24 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Footer } from "../Footer";
-// import { Link } from "react-router-dom";
+import {Sucesso} from "../Assentos/";
+
+
 
 export function Assentos() {
   const { idSessao } = useParams();
-
   const [sessao, setSessao] = useState(null);
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [selecionado, setSelecionado] = useState([]);
+  const [pagina,setPagina]=useState('Assentos');
 
-  const poltronas = [];
-  for (let i = 0; i < 50; i++) {
-    poltronas.push(i);
-  }
-  console.log(poltronas);
   useEffect(() => {
     axios
       .get(
         `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`
       )
       .then((response) => {
-        console.log("V");
-        console.log(response.data);
-
         const { data } = response;
         setSessao(data);
       }, [])
@@ -33,27 +30,76 @@ export function Assentos() {
   if (sessao === null) {
     return <></>;
   }
+  const { day, name, seats } = sessao;
+  
+  function enviarDados(event) {
+  
+    event.preventDefault(); // padrão = recarregar a pagina
+    const promise = axios.post(
+      "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many",
+      {
+        ids: [...selecionado],
+        name: nome,
+        cpf: cpf,
+      }
+    );
+    promise.then((response) => {
+      setPagina("Sucesso");
+       
+      
 
-  console.log("sfds");
-  console.log(sessao);
+    });
+    promise.catch((err) => {
+      alert("Deu ruim");
+    
+    });
+    
+    
+  }
 
-  return (
-    <>
+  function classeDisponibilidade(assento) {
+    if (assento.isAvailable && selecionado.includes(assento.id)) {
+      return "disponivel selecionado";
+    }
+    if (assento.isAvailable) {
+      return "disponivel";
+    }
+    if (assento.isAvailable === false) {
+      return "indisponivel";
+    }
+  }
+
+  function toggleAssento(assento) {
+    if (assento.isAvailable === false) {
+      alert("Esse assento não está disponível");
+      return;
+    }
+
+    if (selecionado.includes(assento.id)) {
+      selecionado.splice(selecionado.indexOf(assento.id), 1);
+      setSelecionado([...selecionado]);
+      return;
+    }
+    setSelecionado((selecionado) => [...selecionado, assento.id]);
+  }
+  
+  
+    return<>
       <section className="assento">
         <div className="titulo">
           <h2>Selecione o(s) assentos</h2>
         </div>
         <div className="comprador">
           <div className="assentos">
-            {poltronas.map((poltrona) => {
+            {seats.map((assento) => {
               return (
-              
-                <span>
-                  <div className="circulo disponivel" >
-                    <p>{poltrona + 1}</p>
-                  </div>
-                </span>
-                
+                <button
+                  key={assento.name * 1}
+                  className={`circulo ${classeDisponibilidade(assento)}`}
+                  onClick={() => toggleAssento(assento)}
+                >
+                  <p>{assento.name}</p>
+                </button>
               );
             })}
           </div>
@@ -72,21 +118,42 @@ export function Assentos() {
               <h4>Indisponivel</h4>
             </span>
           </div>
+
           <div>
             <div className="inputs">
               <label>Nome do Comprador</label>
-              <input placeholder="Digite seu nome..."></input>
+              <input
+                placeholder="Digite seu nome..."
+                type="text"
+                onChange={(e) => setNome(e.target.value)}
+                value={nome}
+              ></input>
             </div>
             <div className="inputs">
               <label>CPF do comprador</label>
-    
-              <input placeholder="Digite seu CPF..."></input>
+              <input
+                placeholder="Digite seu CPF..."
+                onChange={(e) => setCpf(e.target.value)}
+                value={cpf}
+              ></input>
             </div>
           </div>
-          <button className="reserva">Reservar assentos(s)</button>
+          
+            <button className="reserva" onClick={enviarDados}>  
+             
+              Reservar assentos(s)
+            </button>
+          
         </div>
       </section>
-      <Footer></Footer>
+      <Footer
+     
+        titulo={sessao.movie.title}
+        filme={sessao.movie.posterURL}
+        dia={day.weekday}
+        hora={name}
+      />
     </>
-  );
+  
+
 }

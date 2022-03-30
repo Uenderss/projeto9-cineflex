@@ -103,6 +103,8 @@ footer {
   padding: 14px 10px;
   background: #dfe6ed;
   border: 1px solid #9eadba;
+  display: flex;
+  height: 117px;
 }
 footer div {
   display: flex;
@@ -126,15 +128,16 @@ footer figure img {
   margin: 8px;
 }
 footer div div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 90%;
   font-family: "Roboto";
   font-size: 26px;
   color: #293845;
-  text-align: center;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   margin-left: 14px;
+
 }
 .comprador {
   display: flex;
@@ -142,7 +145,7 @@ footer div div {
   justify-content: center;
   align-items: center;
 }
-.comprador button{
+.comprador .reserva{
   margin-top: 41px;
 }
 .reserva {
@@ -156,6 +159,10 @@ footer div div {
   color: #ffffff;
   border-radius: 3px;
   border: 0;
+}
+a{
+  text-decoration:none;
+  color: inherit;
 }
 label {
   font-family: "Roboto";
@@ -189,9 +196,16 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
- 
+  
+}
+.assento{
+  margin-bottom: 177px;
 }
 .assento span{
+  margin: 9px 3.5px;
+  
+}
+.assento button{
   margin: 9px 3.5px;
   cursor: pointer;
 }
@@ -229,7 +243,12 @@ input {
   box-sizing: border-box;
   border-radius: 17px;
 }
-.circulo.selecionado {
+
+.selecionado {
+  background: #8dd7cf;
+  border: 1px solid #1aae9e;
+}
+.circulo.disponivel.selecionado {
   background: #8dd7cf;
   border: 1px solid #1aae9e;
 }
